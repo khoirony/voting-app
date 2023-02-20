@@ -34,14 +34,22 @@
                         <div>&bull;</div>
                         <div class="text-gray-900">3 Comment</div>
                     </div>
-                    <div class="flex items-center space-x-2">
+                    <div 
+                        class="flex items-center space-x-2"
+                        x-data="{ option: false }" 
+                    >
                         <div class="bg-gray-200 text-xxs font-bold uppercase leading-none rounded-full text-center w-28 h-7 py-2 px-4">OPEN</div>
-                        <button class="relative bg-gray-100 hover:bg-gray-200 border rounded-full h-7 transition duration-150 ease-in py-2 px-3 flex items-center">
+                        <button  @click="option = !option" class="relative bg-gray-100 hover:bg-gray-200 border rounded-full h-7 transition duration-150 ease-in py-2 px-3 flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
                             </svg>
                             
-                            <ul class="absolute w-44 text-left font-semibold bg-white shadow-dialog rounded-xl py-3 ml-8">
+                            <ul
+                                x-cloak
+                                x-show.transition.origin.top.left="option"
+                                @click.away="option = false"
+                                x-on:keydown.escape.window="option = false"
+                                class="absolute w-44 text-left font-semibold bg-white shadow-dialog rounded-xl py-3  ml-12 mt-20">
                                 <li>
                                     <a href="#" class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Mark as spam</a>
                                 </li>
@@ -59,11 +67,21 @@
     {{-- Action --}}
     <div class="buttons-container flex items-center justify-between mt-6">
         <div class="flex items-center space-x-4 ml-6">
-            <div class="relative">
-                <button type="button" class="flex items-center justify-center w-32 h-11 text-xs bg-blue font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-2">
+            <div 
+                class="relative"
+                x-data="{ reply: false }" 
+            >
+                <button 
+                    @click="reply = !reply" 
+                    class="flex items-center justify-center w-32 h-11 text-xs bg-blue font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-2">
                     <span class="text-white">Reply</span>
                 </button>
-                <div class="hidden absolute z-10 w-104 text-left font-semibold text-sm bg-white shadow-dialog rounded-xl mt-2">
+                <div
+                    x-cloak
+                    x-show.transition.origin.top.left="reply"
+                    @click.away="reply = false"
+                    x-on:keydown.escape.window="reply = false"  
+                    class="absolute z-10 w-104 text-left font-semibold text-sm bg-white shadow-dialog rounded-xl mt-2">
                     <form action="#" method="post" class="space-y-4 px-4 py-6">
                         <div>
                             <textarea name="post_comment" id="post_comment" cols="30" rows="4" class="w-full text-sm bg-gray-100 rounded-xl placeholder-gray-900 border-none px-4 py-2" placeholder="Go ahead, dont shy. share your thoughts..."></textarea>
@@ -83,14 +101,23 @@
                 </div>
             </div>
     
-            <div class="relative">
-                <button type="button" class="flex items-center justify-center w-36 h-11 text-xs bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-2">
+            <div 
+                class="relative"
+                x-data="{ setStatus: false }" 
+            >
+                <button @click="setStatus = !setStatus" class="flex items-center justify-center w-36 h-11 text-xs bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-2">
                     <span>Set Status</span>
                     <svg class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                       </svg>
                 </button>
-                <div class="absolute z-20 w-76 text-left font-semibold text-sm bg-white shadow-dialog rounded-xl mt-2">
+                <div
+                    x-cloak
+                    x-show.transition.origin.top.left="setStatus"
+                    @click.away="setStatus = false"
+                    x-on:keydown.escape.window="setStatus = false" 
+                    class="absolute z-20 w-76 text-left font-semibold text-sm bg-white shadow-dialog rounded-xl mt-2"
+                >
                     <form action="#" method="post" class="space-y-4 px-4 py-6">
                         <div class="space-y-2">
                             <div>
