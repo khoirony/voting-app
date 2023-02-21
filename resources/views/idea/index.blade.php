@@ -28,7 +28,9 @@
         </div>
     </div>
 
+    {{-- List Idea --}}
     <div class="ideas-container space-y-6 my-6">
+        @foreach ($ideas as $idea)
         <div class="idea-container hover:shadow-card transition duration-150 ease-in bg-white rounded-xl flex cursor-pointer">
             {{-- vote desktop version --}}
             <div class="border-r hidden md:block border-gray-100 px-5 py-8">
@@ -43,21 +45,21 @@
             <div class="flex flex-col md:flex-row flex-1 px-2 py-6">
                 <div class="flex-none mx-2 md:mx-0">
                     <a href="#">
-                        <img src="https://source.unsplash.com/200x200/?face&crop=face&v=1" alt="avatar" class="w-14 h-14 rounded-xl">
+                        <img src="https://source.unsplash.com/200x200/?face&crop=face&v={{ $idea->id }}" alt="avatar" class="w-14 h-14 rounded-xl">
                     </a>
                 </div>
                 <div class="w-full flex flex-col justify-between mx-2 md:mx-4">
                     <h4 class="text-xl font-semibold mt-2 md:mt-0">
-                        <a href="#" class="hover:underline">A random title can go here</a>
+                        <a href="{{ route('idea.show', $idea) }}" class="hover:underline">{{ $idea->title }}</a>
                     </h4>
                     <div class="text-gray-600 mt-3 line-clamp-3">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quasi sed odit neque ullam! Fugit corrupti maiores iusto magnam eos incidunt ratione asperiores dolorum! Quam reiciendis, consequuntur, nobis enim quod alias pariatur necessitatibus libero dignissimos nostrum ducimus tenetur repellendus dolores aliquam?
+                        {{ $idea->description }}
                     </div>
 
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between mt-6">
                         <div class="flex items-center text-xs text-gray-400 font-semibold md:space-x-2">
                             <div>&bull;</div>
-                            <div>10 hour ago</div>
+                            <div>{{ $idea->created_at->diffForHUmans() }}</div>
                             <div>&bull;</div>
                             <div>Category</div>
                             <div>&bull;</div>
@@ -106,6 +108,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+        @endforeach
+
+        <div class="my-8">
+            {{ $ideas->links() }}
         </div>
     </div>
 </x-app-layout>

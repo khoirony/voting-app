@@ -11,6 +11,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=Open+Sans:400,500,600&display=swap" rel="stylesheet" />
 
+        <livewire:styles />
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -112,5 +113,6 @@
             </div>
             {{-- <div class="w-24"></div> --}}
         </main>
+        <livewire:scripts />
     </body>
 </html>
