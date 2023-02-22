@@ -49,38 +49,28 @@
         <main class="container mx-auto flex max-w-custom flex-col md:flex-row" style="max-width:1000px">
             <div class="md:w-70 w-[90%] mx-auto md:mx-0 md:mr-5">
                 <div class="border-2 md:sticky md:top-8 border-blue bg-white rounded-xl mt-16">
+
                     <div class="text-center px-6 py-2 pt-6">
                         <h3 class="font-semibold text-base">Add an idea</h3>
+                        @auth
                         <p class="text-xs mt-4">Let us know what you would like and we'll take a look over!</p>
+                        @else
+                        <p class="text-xs mt-4">Please login to create an idea!</p>
+                        @endauth
                     </div>
 
-                    <form action="#" method="post" class="space-y-4 px-4 py-6">
-                        <div>
-                            <input type="text" name="" id="" class="text-sm w-full border-none bg-gray-100 rounded-xl placeholder-gray-900 px-4 py-2" placeholder="Your Idea">
-                        </div>
-                        <div>
-                            <select class="text-sm w-full rounded-xl px-4 py-2 border-none bg-gray-100" name="category" id="category">
-                                <option value="Category One">Category One</option>
-                                <option value="Category Two">Category Two</option>
-                                <option value="Category Three">Category Three</option>
-                                <option value="Category Four">Category Four</option>
-                            </select>
-                        </div>
-                        <div>
-                            <textarea name="" id="" cols="30" rows="4" class="text-sm w-full border-none bg-gray-100 rounded-xl placeholder-gray-900 px-4 py-2" placeholder="Describe your idea"></textarea>
-                        </div>
-                        <div class="flex items-center justify-between space-x-3">
-                            <button type="button" class="flex items-center justify-center w-1/2 h-11 text-xs bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-2">
-                                <svg class="text-gray-600 w-4 transform -rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
-                                </svg>
-                                <span class="ml-2">Attach</span>
-                            </button>
-                            <button type="submit" class="flex items-center justify-center w-1/2 h-11 text-xs bg-blue font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-2">
-                                <span class="ml-2 text-white">Submit</span>
-                            </button>
-                        </div>
-                    </form>
+                    @auth
+                    <livewire:create-idea />
+                    @else
+                    <div class="my-6 text-center">
+                        <a href="{{ route('login') }}" class="inline-block justify-center w-1/2 text-xs text-white bg-blue font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3">
+                            Login
+                        </a>
+                        <a href="{{ route('register') }}" class="inline-block justify-center w-1/2 text-xs bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3 mt-3">
+                            Sign Up
+                        </a>
+                    </div>
+                    @endauth
                 </div>
             </div>
             <div class="w-full px-2 md:px-0 md:w-175">
