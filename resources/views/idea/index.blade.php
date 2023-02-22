@@ -72,7 +72,7 @@
                             <div>&bull;</div>
                             <div>{{ $idea->created_at->diffForHUmans() }}</div>
                             <div>&bull;</div>
-                            <div>Category</div>
+                            <div>{{ $idea->category->name }}</div>
                             <div>&bull;</div>
                             <div class="text-gray-900">3 Comment</div>
                         </div>

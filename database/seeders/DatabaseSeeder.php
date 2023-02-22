@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Category;
 use App\Models\Idea;
 use Illuminate\Database\Seeder;
 
@@ -23,6 +24,10 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        Category::factory()->create(['name' => 'Techology']);
+        Category::factory()->create(['name' => 'Financial']);
+        Category::factory()->create(['name' => 'Polithic']);
+        Category::factory()->create(['name' => 'Health']);
         Idea::factory(30)->create();
     }
 }
