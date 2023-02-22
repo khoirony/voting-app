@@ -38,6 +38,11 @@ class Idea extends Model
         return $this->belongsTo(Status::class);
     }
 
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
+
     // public function getStatusClasses()
     // {
     //     $allStatuses = [

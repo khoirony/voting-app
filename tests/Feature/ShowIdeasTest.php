@@ -28,6 +28,7 @@ class ShowIdeasTest extends TestCase
     /** @test */
     public function list_of_ideas_shows_on_main_page()
     {
+        $user = User::factory()->create();
         $categoryOne = Category::factory()->create(['name' => 'Category 1']);
         $categoryTwo = Category::factory()->create(['name' => 'Category 2']);
 
@@ -35,12 +36,14 @@ class ShowIdeasTest extends TestCase
         $statusConsidering = Status::factory()->create(['name' => 'Considering', 'classes' => 'bg-purple text-white']);
 
         $ideaOne = Idea::factory()->create([
+            'user_id' => $user->id,
             'title' => 'My First Idea',
             'category_id' => $categoryOne->id,
             'status_id' => $statusOpen->id,
             'description' => 'Description of my first idea',
         ]);
         $ideaTwo = Idea::factory()->create([
+            'user_id' => $user->id,
             'title' => 'My Second Idea',
             'category_id' => $categoryTwo->id,
             'status_id' => $statusConsidering->id,
@@ -63,10 +66,12 @@ class ShowIdeasTest extends TestCase
     /** @test */
     public function single_idea_shows_correctly_on_the_show_page()
     {
+        $user = User::factory()->create();
         $categoryOne = Category::factory()->create(['name' => 'Category 1']);
         $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
 
         $idea = Idea::factory()->create([
+            'user_id' => $user->id,
             'title' => 'My First Idea',
             'category_id' => $categoryOne->id,
             'status_id' => $statusOpen->id,
@@ -84,24 +89,22 @@ class ShowIdeasTest extends TestCase
     /** @test */
     public function ideas_pagination_works()
     {
-        Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
-        Status::factory()->create(['name' => 'Considering', 'classes' => 'bg-purple text-white']);
-        Status::factory()->create(['name' => 'In Progress', 'classes' => 'bg-yellow text-white']);
-        Status::factory()->create(['name' => 'Implemented', 'classes' => 'bg-green text-white']);
-        Status::factory()->create(['name' => 'Closed', 'classes' => 'bg-red text-white']);
-        Category::factory(4)->create();
-        Idea::factory(Idea::PAGINATION_COUNT + 1)->create();
+        $user = User::factory()->create();
+        $categoryOne = Category::factory()->create();
+        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
+
+        Idea::factory(Idea::PAGINATION_COUNT + 1)->create([
+            'user_id' => $user->id,
+            'category_id' => $categoryOne->id,
+            'status_id' => $statusOpen->id
+        ]);
 
         $ideaOne = Idea::find(1);
         $ideaOne->title = 'My First Idea';
-        $ideaOne->category_id = 1;
-        $ideaOne->status_id = 1;
         $ideaOne->save();
 
         $ideaEleven = Idea::find(11);
         $ideaEleven->title = 'My Eleventh Idea';
-        $ideaEleven->category_id = 2;
-        $ideaOne->status_id = 2;
         $ideaEleven->save();
 
         $response = $this->get('/');
@@ -117,18 +120,21 @@ class ShowIdeasTest extends TestCase
     /** @test */
     public function same_idea_title_different_slug()
     {
+        $user = User::factory()->create();
         $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
         $statusConsidering = Status::factory()->create(['name' => 'Considering', 'classes' => 'bg-purple text-white']);
 
         $categoryOne = Category::factory()->create(['name' => 'Category 1']);
         $categoryTwo = Category::factory()->create(['name' => 'Category 2']);
         $ideaOne = Idea::factory()->create([
+            'user_id' => $user->id,
             'title' => 'My First Idea',
             'category_id' => $categoryOne->id,
             'status_id' => $statusOpen->id,
             'description' => 'Description of my first idea',
         ]);
         $ideaTwo = Idea::factory()->create([
+            'user_id' => $user->id,
             'title' => 'My First Ideas',
             'category_id' => $categoryTwo->id,
             'status_id' => $statusConsidering->id,
