@@ -31,7 +31,18 @@
     {{-- List Idea --}}
     <div class="ideas-container space-y-6 my-6">
         @foreach ($ideas as $idea)
-        <div class="idea-container hover:shadow-card transition duration-150 ease-in bg-white rounded-xl flex cursor-pointer">
+        <div 
+            x-data
+            @click="
+                clicked = $event.target
+                target = clicked.tagName.toLowerCase()
+                ignores = ['button', 'svg', 'path', 'a']
+                
+                if(!ignores.includes(target)){
+                    clicked.closest('.idea-container').querySelector('.idea-link').click()
+                }
+            "
+            class="idea-container hover:shadow-card transition duration-150 ease-in bg-white rounded-xl flex cursor-pointer">
             {{-- vote desktop version --}}
             <div class="border-r hidden md:block border-gray-100 px-5 py-8">
                 <div class="text-center">
@@ -50,7 +61,7 @@
                 </div>
                 <div class="w-full flex flex-col justify-between mx-2 md:mx-4">
                     <h4 class="text-xl font-semibold mt-2 md:mt-0">
-                        <a href="{{ route('idea.show', $idea) }}" class="hover:underline">{{ $idea->title }}</a>
+                        <a href="{{ route('idea.show', $idea) }}" class="idea-link hover:underline">{{ $idea->title }}</a>
                     </h4>
                     <div class="text-gray-600 mt-3 line-clamp-3">
                         {{ $idea->description }}
