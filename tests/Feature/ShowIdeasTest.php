@@ -135,7 +135,7 @@ class ShowIdeasTest extends TestCase
         ]);
         $ideaTwo = Idea::factory()->create([
             'user_id' => $user->id,
-            'title' => 'My First Ideas',
+            'title' => 'My First Idea',
             'category_id' => $categoryTwo->id,
             'status_id' => $statusConsidering->id,
             'description' => 'Another description of my first idea',
@@ -149,6 +149,6 @@ class ShowIdeasTest extends TestCase
         $response = $this->get(route('idea.show', $ideaTwo));
 
         $response->assertSuccessful();
-        $this->assertTrue(request()->path() == 'ideas/my-first-ideas');
+        $this->assertTrue(request()->path() == 'ideas/my-first-idea-2');
     }
 }

@@ -14,7 +14,7 @@
         {{-- vote desktop version --}}
         <div class="border-r hidden md:block border-gray-100 px-5 py-8">
             <div class="text-center">
-                <div class="font-semi-bold text-2xl">{{ $votesCount }}</div>
+                <div class="font-semibold text-2xl">{{ $votesCount }}</div>
                 <div class="text-gray-500">Votes</div>
             </div>
             <div class="mt-8">
