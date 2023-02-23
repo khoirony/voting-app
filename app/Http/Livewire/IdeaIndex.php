@@ -29,7 +29,6 @@ class IdeaIndex extends Component
                 $this->idea->removeVote(auth()->user());
             } catch (VoteNotFoundException $e){
                 // do nothing
-                dd($e);
             }
             $this->votesCount--;
             $this->hasVoted = false;
@@ -37,7 +36,7 @@ class IdeaIndex extends Component
             try {
                 $this->idea->vote(auth()->user());
             } catch (DuplicateVoteException $e){
-                dd($e);
+                // do nothing
             }
             $this->votesCount++;
             $this->hasVoted = true;

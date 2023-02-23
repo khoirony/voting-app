@@ -14,6 +14,9 @@ class Idea extends Model
 
     const PAGINATION_COUNT = 10;
 
+    const CATEGORY_TUTORIAL_REQUEST = 'Tutorial Request';
+    const CATEGORY_LARACASTS_FEATURE = 'Laracast Feature';
+
     protected $guarded = [];
 
     public function sluggable(): array
@@ -42,7 +45,7 @@ class Idea extends Model
 
     public function votes()
     {
-        return $this->hasMany(Vote::class);
+        return $this->belongsToMany(User::class, 'votes');
     }
 
     public function isVotedByUser(?User $user)
@@ -62,6 +65,8 @@ class Idea extends Model
             throw new DuplicateVoteException;
         }
         
+        $this->votes_count++;
+
         return Vote::create([
             'idea_id' => $this->id,
             'user_id' => $user->id
@@ -76,6 +81,7 @@ class Idea extends Model
         
         if($voteToDelete) {
             $voteToDelete->delete();
+            $this->votes_count--;
         }else{
             throw new VoteNotFoundException();
         }
