@@ -7,12 +7,13 @@ use Livewire\Component;
 
 class IdeaShow extends Component
 {
-    public $idea, $votesCount;
+    public $idea, $votesCount, $hasVoted;
 
     public function mount(Idea $idea, $votesCount)
     {
         $this->idea = $idea;
         $this->votesCount = $votesCount;
+        $this->hasVoted = $idea->isVotedByUser(auth()->user());
     }
     public function render()
     {

@@ -86,12 +86,22 @@ class VoteIndexPageTest extends TestCase
             'description' => 'Description for my first idea'
         ]);
 
-        Livewire::test(IdeaIndex::class, [
-            'idea' => $idea,
-            'votesCount' => 5,
-        ])
-        ->assertSet('votesCount', 5)
-        ->assertSeeHtml('<div class="font-semibold text-2xl">5</div>')
-        ->assertSeeHtml('<div class="text-sm font-bold leading-none">5</div>');
+        Vote::factory()->create([
+            'idea_id' => $idea->id,
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->actingAs($user)->get(route('idea.index'));
+
+        $ideaWithVotes = $response['ideas']->items()[0];
+
+
+        Livewire::actingAs($user)
+            ->test(IdeaIndex::class, [
+                'idea' => $ideaWithVotes,
+                'votesCount' => 5,
+            ])
+            ->assertSet('hasVoted', true)
+            ->assertSee('Votes');
     }
 }
