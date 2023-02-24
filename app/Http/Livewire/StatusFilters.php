@@ -10,32 +10,34 @@ use Livewire\Component;
 
 class StatusFilters extends Component
 {
-    public $status = 'All';
+    public $status;
     public $statusCount;
 
-    protected $queryString = [
-        'status',
-    ];
+    // protected $queryString = [
+    //     'status',
+    // ];
 
     public function mount()
     {
         $this->statusCount = Status::getCount();
+        $this->status = request()->status ?? 'All';
 
         if(Route::currentRouteName() == 'idea.show'){
             $this->status = null;
-            $this->queryString = [];
+            // $this->queryString = [];
         }
     }
 
     public function setStatus($newStatus)
     {
         $this->status = $newStatus;
+        $this->emit('queryStringUpdatedStatus', $this->status);
 
-        // if($this->getPreviousRootName() == 'idea.show'){
+        if($this->getPreviousRootName() == 'idea.show'){
             return redirect()->route('idea.index', [
                 'status' => $this->status
             ]);
-        // }
+        }
 
     }
 
