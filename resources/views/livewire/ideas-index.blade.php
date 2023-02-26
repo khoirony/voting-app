@@ -2,7 +2,7 @@
     <div class="filters flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-6">
         <div class="w-full md:w-1/3">
             <select wire:model="category" class="w-full rounded-xl px-4 py-2 border-none" name="category" id="category">
-                <option value="All Categorries">All Categorries</option>
+                <option value="All Categories">All Categories</option>
                 @foreach ($categories as $category)
                 <option value="{{ $category->name }}">{{ $category->name }}</option>
                 @endforeach
