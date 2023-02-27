@@ -119,7 +119,7 @@
     
             @auth
                 @if (auth()->user()->isAdmin())
-                    <livewire:set-status :idea="$idea"/>
+                    <livewire:set-status :idea="$idea" />
                 @endif
             @endauth
         </div>

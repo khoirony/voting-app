@@ -15,10 +15,6 @@ class StatusTest extends TestCase
 
     public function test_can_get_count_of_each_status()
     {
-        $user = User::factory()->create();
-
-        $categoryOne = Category::factory()->create(['name' => 'Category 1']);
-
         $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
         $statusConsidering = Status::factory()->create(['name' => 'Considering', 'classes' => 'bg-purple text-white']);
         $statusInProgress = Status::factory()->create(['name' => 'In Progress', 'classes' => 'bg-yellow text-white']);
@@ -26,28 +22,18 @@ class StatusTest extends TestCase
         $statusClosed = Status::factory()->create(['name' => 'Closed', 'classes' => 'bg-red text-white']);
 
         Idea::factory()->create([
-            'user_id' => $user->id,
-            'category_id' => $categoryOne->id,
             'status_id' =>$statusOpen->id,
         ]);
         Idea::factory()->create([
-            'user_id' => $user->id,
-            'category_id' => $categoryOne->id,
             'status_id' =>$statusConsidering->id,
         ]);
         Idea::factory()->create([
-            'user_id' => $user->id,
-            'category_id' => $categoryOne->id,
             'status_id' =>$statusInProgress->id,
         ]);
         Idea::factory()->create([
-            'user_id' => $user->id,
-            'category_id' => $categoryOne->id,
             'status_id' =>$statusImplemented->id,
         ]);
         Idea::factory()->create([
-            'user_id' => $user->id,
-            'category_id' => $categoryOne->id,
             'status_id' =>$statusClosed->id,
         ]);
 
