@@ -8,7 +8,12 @@
         </a>
     </div>
 
-    <livewire:idea-show :idea="$idea" :votesCount="$votesCount" />
+    <livewire:idea-show 
+        :idea="$idea" 
+        :votesCount="$votesCount" 
+    />
+
+    <x-notification-success />
 
     <x-modals-container :idea="$idea" />
 

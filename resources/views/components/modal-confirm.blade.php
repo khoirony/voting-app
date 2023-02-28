@@ -17,11 +17,11 @@
         $nextTick(() => $refs.confirmButton.focus())
     "
     x-init="
-        window.livewire.on('{{ $eventToCloseModal }}', () => {
+        Livewire.on('{{ $eventToCloseModal }}', () => {
             option = false
         })
     "
-    class="fixed z-10 inset-0 overflow-y-auto"
+    class="fixed z-20 inset-0 overflow-y-auto"
     aria-labelledby="modal-title"
     role="dialog"
     aria-modal="true"
