@@ -14,7 +14,7 @@ class IdeaPolicy
      * Determine whether the user can view any models.
      *
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return mixed
      */
     public function viewAny(User $user)
     {
@@ -26,7 +26,7 @@ class IdeaPolicy
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Idea  $idea
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return mixed
      */
     public function view(User $user, Idea $idea)
     {
@@ -37,7 +37,7 @@ class IdeaPolicy
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return mixed
      */
     public function create(User $user)
     {
@@ -49,11 +49,12 @@ class IdeaPolicy
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Idea  $idea
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return mixed
      */
     public function update(User $user, Idea $idea)
     {
-        //
+        return $user->id === (int) $idea->user_id
+            && now()->subHour() <= $idea->created_at;
     }
 
     /**
@@ -61,7 +62,7 @@ class IdeaPolicy
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Idea  $idea
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return mixed
      */
     public function delete(User $user, Idea $idea)
     {
@@ -73,7 +74,7 @@ class IdeaPolicy
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Idea  $idea
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return mixed
      */
     public function restore(User $user, Idea $idea)
     {
@@ -85,7 +86,7 @@ class IdeaPolicy
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Idea  $idea
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return mixed
      */
     public function forceDelete(User $user, Idea $idea)
     {
