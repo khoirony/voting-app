@@ -20,6 +20,7 @@ module.exports = {
                 gray: colors.gray,
                 'gray-background': '#f7f8fc',
                 'blue': '#328af1',
+                'red-100' : '#fee2e2',
                 'blue-hover': '#2879bd',
                 'yellow': '#ffc73c',
                 'red': '#ec454f',
