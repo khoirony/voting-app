@@ -38,7 +38,7 @@
     content: "";
     width: 4px;
     height: calc(100% - 60px);
-    background: theme('colors.gray-background');;
+    background: theme('colors.gray-background');
 }
 
 .is-admin::before {
