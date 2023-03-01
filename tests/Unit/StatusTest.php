@@ -15,11 +15,11 @@ class StatusTest extends TestCase
 
     public function test_can_get_count_of_each_status()
     {
-        $statusOpen = Status::factory()->create(['name' => 'Open', 'classes' => 'bg-gray-200']);
-        $statusConsidering = Status::factory()->create(['name' => 'Considering', 'classes' => 'bg-purple text-white']);
-        $statusInProgress = Status::factory()->create(['name' => 'In Progress', 'classes' => 'bg-yellow text-white']);
-        $statusImplemented = Status::factory()->create(['name' => 'Implemented', 'classes' => 'bg-green text-white']);
-        $statusClosed = Status::factory()->create(['name' => 'Closed', 'classes' => 'bg-red text-white']);
+        $statusOpen = Status::factory()->create(['name' => 'Open']);
+        $statusConsidering = Status::factory()->create(['name' => 'Considering']);
+        $statusInProgress = Status::factory()->create(['name' => 'In Progress']);
+        $statusImplemented = Status::factory()->create(['name' => 'Implemented']);
+        $statusClosed = Status::factory()->create(['name' => 'Closed']);
 
         Idea::factory()->create([
             'status_id' =>$statusOpen->id,
