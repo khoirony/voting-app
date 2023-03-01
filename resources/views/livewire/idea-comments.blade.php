@@ -44,7 +44,10 @@
                     </div>
                 </div>
             </div> <!-- end comment-container --> --}}
+        </div>
 
+        <div class="my-8 md:ml-22">
+            {{ $comments->onEachSide(1)->links() }}
         </div>
     @else
         <div class="mx-auto w-70 mt-12">
