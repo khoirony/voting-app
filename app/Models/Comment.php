@@ -9,7 +9,7 @@ class Comment extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $perPage = 20;
+    protected $perPage = 7;
 
     public function user()
     {
