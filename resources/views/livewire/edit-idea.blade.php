@@ -1,15 +1,15 @@
 <div
     x-cloak
-    x-data="{ isOpen: false }"
-    x-show="isOpen"
-    @keydown.escape.window="isOpen = false"
+    x-data="{ option: false }"
+    x-show="option"
+    @keydown.escape.window="option = false"
     @custom-show-edit-modal.window="
-        isOpen = true
+        option = true
         $nextTick(() => $refs.title.focus())
     "
     x-init="
         window.livewire.on('ideaWasUpdated', () => {
-            isOpen = false
+            option = false
         })
     "
     class="fixed z-10 inset-0 overflow-y-auto"
@@ -19,18 +19,18 @@
 >
     <div class="flex items-end justify-center min-h-screen">
         <div
-            x-show.transition.opacity="isOpen"
+            x-show.transition.opacity="option"
             class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
             aria-hidden="true">
         </div>
 
         <div
-            x-show.transition.origin.bottom.duration.300ms="isOpen"
+            x-show.transition.origin.bottom.duration.300ms="option"
             class="modal bg-white rounded-tl-xl rounded-tr-xl overflow-hidden transform transition-all py-4 sm:max-w-lg sm:w-full"
         >
             <div class="absolute top-0 right-0 pt-4 pr-4">
                 <button
-                    @click="isOpen = false"
+                    @click="option = false"
                     class="text-gray-400 hover:text-gray-500"
                 >
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

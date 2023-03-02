@@ -45,7 +45,9 @@
     position: absolute;
     width: 38px;
     height: 38px;
-	@@ -52,13 +52,34 @@
+    border-radius: 38px;
+    border: 7px solid white;
+    box-shadow: 4px 4px 15px 0 rgba(36, 37, 38, 0.08);
     left: -58px;
     background: theme('colors.purple');
     opacity: 1;

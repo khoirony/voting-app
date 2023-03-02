@@ -8,7 +8,7 @@
                 <img src="{{ $comment->user->getAvatar() }}" alt="avatar" class="w-14 h-14 rounded-xl">
             </a>
             @if ($comment->user->isAdmin())
-                <div class="md:text-center uppercase text-blue text-xxs font-bold mt-1">Admin</div>
+                <div class="md:text-center uppercase text-blue text-xs font-bold mt-1">Admin</div>
             @endif
         </div>
         <div class="w-full md:mx-4">
