@@ -5,7 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>Laracast Voting</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+
+        <title>{{ $title ?? 'Laracasts Voting' }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -44,9 +49,11 @@
                         @endauth
                     </div>
                 @endif
-                <a href="#">
-                    <img src="https://www.gravatar.com/avatar/000?d=mp" alt="alt" class="w-10 h-10 rounded-full">
-                </a>
+                @auth
+                    <a href="#">
+                        <img src="{{ auth()->user()->getAvatar() }}" alt="avatar" class="w-10 h-10 rounded-full">
+                    </a>
+                @endauth
             </div>
         </header>
         
@@ -63,18 +70,7 @@
                         @endauth
                     </div>
 
-                    @auth
                     <livewire:create-idea />
-                    @else
-                    <div class="my-6 text-center">
-                        <a href="{{ route('login') }}" class="inline-block justify-center w-1/2 text-xs text-white bg-blue font-semibold rounded-xl border border-blue hover:bg-blue-hover transition duration-150 ease-in px-6 py-3">
-                            Login
-                        </a>
-                        <a href="{{ route('register') }}" class="inline-block justify-center w-1/2 text-xs bg-gray-200 font-semibold rounded-xl border border-gray-200 hover:border-gray-400 transition duration-150 ease-in px-6 py-3 mt-3">
-                            Sign Up
-                        </a>
-                    </div>
-                    @endauth
                 </div>
             </div>
             <div class="w-full px-2 md:px-0 md:w-175">

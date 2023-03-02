@@ -26,7 +26,7 @@
                 @endif
 
                 <div class="mt-4 md:mt-0">
-                    {{ $comment->body }}
+                    {!! nl2br(e($comment->body)) !!}
                 </div>
             </div>
             <div class="flex items-center justify-between mt-6">
