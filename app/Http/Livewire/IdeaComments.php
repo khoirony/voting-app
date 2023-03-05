@@ -40,7 +40,7 @@ class IdeaComments extends Component
     public function render()
     {
         return view('livewire.idea-comments', [
-            'comments' => Comment::with(['user', 'status'])->where('idea_id', $this->idea->id)->paginate()->withQueryString(),
+            'comments' => Comment::with(['user', 'status'])->where('idea_id', $this->idea->id)->orderBy("id", "desc")->paginate()->withQueryString(),
         ]);
     }
 }

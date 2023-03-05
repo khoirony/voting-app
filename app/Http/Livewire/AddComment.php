@@ -16,10 +16,13 @@ class AddComment extends Component
 
     public $idea;
     public $comment;
+
+    // set validation
     protected $rules = [
         'comment' => 'required|min:4',
     ];
 
+    // get data idea every load
     public function mount(Idea $idea)
     {
         $this->idea = $idea;
@@ -27,12 +30,15 @@ class AddComment extends Component
 
     public function addComment()
     {
+        // can't access if guest
         if (auth()->guest()) {
             abort(Response::HTTP_FORBIDDEN);
         }
 
+        // run validation
         $this->validate();
 
+        // create comment
         $newComment = Comment::create([
             'user_id' => auth()->id(),
             'idea_id' => $this->idea->id,
@@ -40,10 +46,13 @@ class AddComment extends Component
             'body' => $this->comment,
         ]);
 
+        // reset form comment
         $this->reset('comment');
 
+        // send notif to user who have this idea
         $this->idea->user->notify(new CommentAdded($newComment));
 
+        // send event and payload
         $this->emit('commentWasAdded', 'Comment was posted!');
     }
 

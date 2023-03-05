@@ -75,31 +75,31 @@ class IdeasIndex extends Component
 
         return view('livewire.ideas-index', [
             'ideas' => Idea::with('user', 'category', 'status')
-                ->when($this->status && $this->status != 'All', function($query) use ($statuses){
+                ->when($this->status && $this->status != 'All', function($query) use ($statuses){                   //filter by status
                     return $query->where('status_id', $statuses->get($this->status));
-                })->when($this->category && $this->category != 'All Categories', function($query) use ($categories){
+                })->when($this->category && $this->category != 'All Categories', function($query) use ($categories){ //filter by category
                     return $query->where('category_id', $categories->pluck('id', 'name')->get($this->category));
-                })->when($this->filter && $this->filter == 'Top Voted', function($query) {
+                })->when($this->filter && $this->filter == 'Top Voted', function($query) {                          //filter by top voted
                     return $query->orderByDesc('votes_count');
-                })->when($this->filter && $this->filter == 'My Ideas', function($query) {
+                })->when($this->filter && $this->filter == 'My Ideas', function($query) {                           //filter by my ideas
                     return $query->where('user_id', auth()->id());
-                })->when($this->filter && $this->filter === 'Spam Ideas', function ($query) {
+                })->when($this->filter && $this->filter === 'Spam Ideas', function ($query) {                       //filter by spam ideas sort desc
                     return $query->where('spam_reports', '>', 0)->orderByDesc('spam_reports');
-                })->when($this->filter && $this->filter === 'Spam Comments', function ($query) {
+                })->when($this->filter && $this->filter === 'Spam Comments', function ($query) {                    //filter by spam comment
                     return $query->whereHas('comments', function ($query) {
                         $query->where('spam_reports', '>', 0);
                     });
-                })->when(strlen($this->search) >= 3, function($query) {
+                })->when(strlen($this->search) >= 3, function($query) {                                             //search filter
                     return $query->where('title', 'like', '%'.$this->search.'%');
-                })->addSelect(['voted_by_user' => Vote::select('id')
+                })->addSelect(['voted_by_user' => Vote::select('id')                                                //get data idea voted by user
                     ->where('user_id', auth()->id())
                     ->whereColumn('idea_id', 'ideas.id')
                 ])
-                ->withCount('votes')
-                ->withCount('comments')
-                ->orderBy('id', 'desc')
-                ->simplePaginate()
-                ->withQueryString(),
+                ->withCount('votes')        //count votes every idea
+                ->withCount('comments')     //count comment
+                ->orderBy('id', 'desc')     //sort idea
+                ->simplePaginate()          //pagination
+                ->withQueryString(),        //add query in url when change page      
             'categories' => $categories,
         ]);
     }

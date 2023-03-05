@@ -29,16 +29,16 @@ class CommentNotifications extends Component
         $this->notificationCount = auth()->user()->unreadNotifications()->count();
 
         if ($this->notificationCount > self::NOTIFICATION_THRESHOLD) {
-            $this->notificationCount = self::NOTIFICATION_THRESHOLD.'+';
+            $this->notificationCount = self::NOTIFICATION_THRESHOLD.'+';  //if notif > 20 then count number will have +
         }
     }
 
     public function getNotifications()
     {
         $this->notifications = auth()->user()
-            ->unreadNotifications()
-            ->latest()
-            ->take(self::NOTIFICATION_THRESHOLD)
+            ->unreadNotifications()                 //get unread notif
+            ->latest()                              //sort by latest notif
+            ->take(self::NOTIFICATION_THRESHOLD)    //batasi 20 notif
             ->get();
 
         $this->isLoading = false;
@@ -50,6 +50,7 @@ class CommentNotifications extends Component
             abort(Response::HTTP_FORBIDDEN);
         }
 
+        // find data notif and mark as read
         $notification = DatabaseNotification::findOrFail($notificationId);
         $notification->markAsRead();
 
@@ -72,9 +73,13 @@ class CommentNotifications extends Component
             return redirect()->route('idea.index');
         }
 
+        // collect all id comment
         $comments = $idea->comments()->pluck('id');
+
+        // find id comment
         $indexOfComment = $comments->search($comment->id);
 
+        // find page comment 
         $page = (int) ($indexOfComment / $comment->getPerPage()) + 1;
 
         session()->flash('scrollToComment', $comment->id);
@@ -91,7 +96,10 @@ class CommentNotifications extends Component
             abort(Response::HTTP_FORBIDDEN);
         }
 
+        // get all notif and marks as read
         auth()->user()->unreadNotifications->markAsRead();
+
+        // re run this method
         $this->getNotificationCount();
         $this->getNotifications();
     }

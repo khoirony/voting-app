@@ -27,7 +27,7 @@ class IdeaIndex extends Component
             return $this->redirectToLogin();
         }
 
-        if($this->hasVoted){
+        if($this->hasVoted){                                //if user has vote then remove vote and decrement votecount
             try {
                 $this->idea->removeVote(auth()->user());
             } catch (VoteNotFoundException $e){
@@ -35,7 +35,7 @@ class IdeaIndex extends Component
             }
             $this->votesCount--;
             $this->hasVoted = false;
-        }else{
+        }else{                                              //if user not vote then send user data to idea->vote
             try {
                 $this->idea->vote(auth()->user());
             } catch (DuplicateVoteException $e){

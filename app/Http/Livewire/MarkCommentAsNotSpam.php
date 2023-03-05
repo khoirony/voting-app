@@ -14,8 +14,10 @@ class MarkCommentAsNotSpam extends Component
 
     public function setMarkAsNotSpamComment($commentId)
     {
+        // input comment to global variable
         $this->comment = Comment::findOrFail($commentId);
 
+        // send event to open modal
         $this->emit('markAsNotSpamCommentWasSet');
     }
 
@@ -25,9 +27,11 @@ class MarkCommentAsNotSpam extends Component
             abort(Response::HTTP_FORBIDDEN);
         }
 
+        // set spam to 0
         $this->comment->spam_reports = 0;
         $this->comment->save();
 
+        // send event to close modal and message
         $this->emit('commentWasMarkedAsNotSpam', 'Comment spam counter was reset!');
     }
 
